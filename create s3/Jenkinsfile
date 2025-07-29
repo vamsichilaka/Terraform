@@ -1,27 +1,34 @@
 pipeline {
   agent any
 
-  environment {
-    AWS_ACCESS_KEY_ID     = credentials('aws-access-key')
-    AWS_SECRET_ACCESS_KEY = credentials('aws-secret-key')
-  }
-
   stages {
-    stage('Init') {
+    stage('Checkout Code') {
       steps {
-        sh 'terraform init'
+        checkout scm
       }
     }
 
-    stage('Plan') {
+    stage('Terraform Init') {
       steps {
-        sh 'terraform plan'
+        dir('my-folder') {
+          sh 'terraform init'
+        }
       }
     }
 
-    stage('Apply') {
+    stage('Terraform Plan') {
       steps {
-        sh 'terraform apply -auto-approve'
+        dir('my-folder') {
+          sh 'terraform plan'
+        }
+      }
+    }
+
+    stage('Terraform Apply') {
+      steps {
+        dir('my-folder') {
+          sh 'terraform apply -auto-approve'
+        }
       }
     }
   }
