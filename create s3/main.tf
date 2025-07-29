@@ -3,6 +3,6 @@ provider "aws" {
 }
 
 resource "aws_s3_bucket" "my_bucket" {
-  bucket = "Launched via jenkins"  # Change to a unique bucket name
+  bucket = "launched via jenkins"  # Change to a unique bucket name
   acl    = "private"
 }
