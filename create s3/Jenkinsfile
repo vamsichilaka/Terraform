@@ -31,5 +31,12 @@ pipeline {
         }
       }
     }
+    stage('Destroy') {
+      steps {
+        dir('create s3') {
+          sh 'terraform destroy -auto-approve'
+        }
+      }
+    }
   }
 }
